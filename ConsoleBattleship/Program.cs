@@ -1,4 +1,5 @@
-﻿using BattleshipClassLibrary.Models;
+﻿using BattleshipClassLibrary;
+using BattleshipClassLibrary.Models;
 
 namespace ConsoleBattleship
 {
@@ -7,6 +8,8 @@ namespace ConsoleBattleship
         static void Main(string[] args)
         {
             WelcomeMessage();
+            PlayerInfoModel player1 = CreatePlayer("Player 1");
+            PlayerInfoModel player2 = CreatePlayer("Player 2");
 
             Console.ReadLine();
         }
@@ -16,9 +19,20 @@ namespace ConsoleBattleship
             Console.WriteLine("Welcome to Battleship Lite");
             Console.WriteLine("created by Christian Foster\n");
         }
-        private static void GetShipPlacement()
+        private static void PlaceShips(PlayerInfoModel model)
         {
-            throw new NotImplementedException();
+            do
+            {
+                Console.WriteLine($"Where would you like to place ship number {model.ShipLocations.Count + 1}");
+                string location = Console.ReadLine();
+
+                bool isValidLocation = GameLogic.PlaceShip(model, location);
+
+                if(!isValidLocation)
+                {
+                    Console.WriteLine("That was not a valid location, Please try again.");
+                }
+            } while (model.ShipLocations.Count < 5);
         }
 
         private static void DisplayScore()
@@ -39,16 +53,22 @@ namespace ConsoleBattleship
             return output;
         }
 
-        private static PlayerInfoModel CreatePlayer()
+        private static PlayerInfoModel CreatePlayer(string playerTitle)
         {
             PlayerInfoModel output = new PlayerInfoModel();
 
+            Console.WriteLine($"Player information for {playerTitle}");
+
             //Ask the user for their name
             output.UsersName = AskForUsersName();
+            
             //Load up the shot grid
-            output.ShotGrid;
+            GameLogic.InitializeGrid(output);
+
             //Ask the user for their 5 ship placements
+            PlaceShips(output);
             //Clear
+            Console.Clear();
 
             return output;
         }
