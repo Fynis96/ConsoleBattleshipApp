@@ -46,6 +46,7 @@ namespace ConsoleBattleship
             //Ask the user for their name
             output.UsersName = AskForUsersName();
             //Load up the shot grid
+            output.ShotGrid;
             //Ask the user for their 5 ship placements
             //Clear
 
