@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BattleshipClassLibrary.Models
 {
-    internal class PlayerInfoModel
+    public class PlayerInfoModel
     {
         public string UsersName { get; set; }
         public List<GridSpotModel> ShipLocations { get; set; }

@@ -31,9 +31,25 @@ namespace ConsoleBattleship
             throw new NotImplementedException();
         }
 
-        private static string AskForName()
+        private static string AskForUsersName()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("What is your name: ");
+            string output = Console.ReadLine();
+
+            return output;
+        }
+
+        private static PlayerInfoModel CreatePlayer()
+        {
+            PlayerInfoModel output = new PlayerInfoModel();
+
+            //Ask the user for their name
+            output.UsersName = AskForUsersName();
+            //Load up the shot grid
+            //Ask the user for their 5 ship placements
+            //Clear
+
+            return output;
         }
 
     }

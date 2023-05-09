@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BattleshipClassLibrary.Models
 {
-    internal class GridSpotModel
+    public class GridSpotModel
     {
         public string SpotLetter { get; set; }
         public int SpotNumber { get; set; }
