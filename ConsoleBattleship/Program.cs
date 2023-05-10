@@ -50,9 +50,18 @@ namespace ConsoleBattleship
 
             do
             {
-                string shot = AskForShot();
-                (row, column) = GameLogic.SplitShotIntoRowAndColumn(shot);
-                isValidShot = GameLogic.ValidateShot(activePlayer, row, column);
+                string shot = AskForShot(activePlayer);
+                try
+                {
+                    (row, column) = GameLogic.SplitShotIntoRowAndColumn(shot);
+                    isValidShot = GameLogic.ValidateShot(activePlayer, row, column);
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine("Error: " + ex.Message);
+                    isValidShot = false;
+                }
 
                 if (!isValidShot)
                 {
@@ -63,18 +72,30 @@ namespace ConsoleBattleship
             bool isAHit = GameLogic.IdentifyShotResult(opponent, row, column);
 
             GameLogic.MarkShotResult(activePlayer, row, column, isAHit);
+
+            DisplayShotResults(row, column, isAHit);
         }
 
-        private static string AskForShot()
+        private static void DisplayShotResults(string row, int column, bool isAHit)
         {
-            Console.Write("Please enter your shot selection: ");
+            if (isAHit)
+            {
+                Console.WriteLine($"{row}{column} is a Hit!");
+            }
+            else
+            {
+                Console.WriteLine($"{row}{column} is a Miss!");
+            }
+        }
+        private static string AskForShot(PlayerInfoModel player)
+        {
+            Console.Write($"Please enter your shot selection {player.UsersName}: ");
             string output = Console.ReadLine();
             return output;
         }
 
         private static void DisplayShotGrid(PlayerInfoModel activePlayer)
         {
-            Console.WriteLine(activePlayer.UsersName);
             string currentRow = activePlayer.ShotGrid[0].SpotLetter;
 
             foreach (var gridSpot in activePlayer.ShotGrid)
@@ -91,17 +112,18 @@ namespace ConsoleBattleship
                 }
                 else if (gridSpot.Status == GridSpotStatus.Hit)
                 {
-                    Console.Write(" X ");
+                    Console.Write(" X  ");
                 }
                 else if (gridSpot.Status == GridSpotStatus.Miss)
                 {
-                    Console.Write(" O ");
+                    Console.Write(" O  ");
                 }
                 else
                 {
                     Console.Write(" ? ");
                 }
             }
+            Console.WriteLine("\n");
         }
         private static void WelcomeMessage()
         {
@@ -115,9 +137,19 @@ namespace ConsoleBattleship
                 Console.WriteLine($"Where would you like to place ship number {model.ShipLocations.Count + 1}");
                 string location = Console.ReadLine();
 
-                bool isValidLocation = GameLogic.PlaceShip(model, location);
+                bool isValidLocation = false;
 
-                if(!isValidLocation)
+                try
+                {
+                    isValidLocation = GameLogic.PlaceShip(model, location);
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+
+                if (!isValidLocation)
                 {
                     Console.WriteLine("That was not a valid location, Please try again.");
                 }

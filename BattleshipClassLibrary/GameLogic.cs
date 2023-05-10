@@ -33,6 +33,7 @@ namespace BattleshipClassLibrary
                 if (ship.SpotLetter == row.ToUpper() && ship.SpotNumber == column)
                 {
                     isAHit = true;
+                    ship.Status = GridSpotStatus.Sunk;
                 }
             }
 
@@ -150,7 +151,7 @@ namespace BattleshipClassLibrary
                 throw new ArgumentException("Invalid shot type", "shot");
             }
 
-            row = shotArray[0].ToString();
+            row = shotArray[0].ToString().ToUpper();
             column = int.Parse(shotArray[1].ToString());
 
             return (row, column);
