@@ -80,11 +80,11 @@ namespace ConsoleBattleship
         {
             if (isAHit)
             {
-                Console.WriteLine($"{row}{column} is a Hit!");
+                Console.WriteLine($"{row}{column} is a Hit! ");
             }
             else
             {
-                Console.WriteLine($"{row}{column} is a Miss!");
+                Console.WriteLine($"{row}{column} is a Miss! ");
             }
         }
         private static string AskForShot(PlayerInfoModel player)
