@@ -74,6 +74,7 @@ namespace ConsoleBattleship
 
         private static void DisplayShotGrid(PlayerInfoModel activePlayer)
         {
+            Console.WriteLine(activePlayer.UsersName);
             string currentRow = activePlayer.ShotGrid[0].SpotLetter;
 
             foreach (var gridSpot in activePlayer.ShotGrid)
